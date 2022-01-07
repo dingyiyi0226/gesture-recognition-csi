@@ -7,7 +7,7 @@ import torch
 from torch.utils.data import Dataset
 
 class CsiDataSet(Dataset):
-    def __init__(self, root='data/', inference=None):
+    def __init__(self, root='data/', files=None):
 
         self.root = root
         self.file = []
@@ -15,12 +15,21 @@ class CsiDataSet(Dataset):
         self.reader = NEXBeamformReader()
         self.labels = ['circle', 'clap', 'kick', 'push', 'sit', 'slide', 'stand']
 
-        for idx, label in enumerate(self.labels):
-            files = [os.path.relpath(i, root) for i in glob.glob(f'{root}/{label}/*.pcap')]
-            files.sort(key=lambda x: int(x.split('/')[-1].split('.')[0]))
+        if files is None:
+            """ Training """
 
-            self.file.extend(files)
-            self.label.extend([idx for _ in files])
+            for idx, label in enumerate(self.labels):
+                files = [os.path.relpath(i, root) for i in glob.glob(f'{root}/{label}/*.pcap')]
+                files.sort(key=lambda x: int(x.split('/')[-1].split('.')[0]))
+
+                self.file.extend(files)
+                self.label.extend([idx for _ in files])
+        else:
+            """ Inferencing """
+            if type(files) is list:
+                self.file.extend(files)
+            else:
+                self.file.append(files)
 
     def __len__(self):
         return len(self.file)
@@ -35,7 +44,10 @@ class CsiDataSet(Dataset):
         csi_matrix = csi_matrix.reshape(1, 128, 150)
         csi_matrix = csi_matrix.clamp(min=-20)  # clamp the small values
 
-        return csi_matrix, self.label[index]
+        if self.label:
+            return csi_matrix, self.label[index]
+        else:
+            return csi_matrix, -1
 
     def transform(self, data):
         pass

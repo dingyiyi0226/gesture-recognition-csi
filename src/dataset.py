@@ -49,5 +49,5 @@ class CsiDataSet(Dataset):
         else:
             return csi_matrix, -1
 
-    def transform(self, data):
-        pass
+    def get_label(self, idx):
+        return self.labels[idx]

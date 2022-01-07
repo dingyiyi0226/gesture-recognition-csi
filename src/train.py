@@ -12,7 +12,7 @@ from dataset import CsiDataSet
 def train():
 
     EPOCH = 60
-    ID = '3'
+    ID = '4'
 
     dataset = CsiDataSet()
 

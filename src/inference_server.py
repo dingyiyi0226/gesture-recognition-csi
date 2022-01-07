@@ -10,7 +10,7 @@ class InferenceServer():
     def __init__(self, root):
 
         self.root = root
-        model_path = 'models/model-2.pkl'
+        model_path = 'models/model-5.pkl'
 
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.model = models.CNN2()

@@ -4,7 +4,7 @@ In this project, we aim to design a program that collects CSI from a Wi-Fi route
 
 Instead of transmitting special packets continually, we use the Wi-Fi beacon as our Tx signal.
 
-You can see the [project report](WNFA_Final_Project_Report.pdf) for more information.
+This project is the term project for Wireless Networking - Fundamentals and Applications class in Fall 2021. For more details, please refer to the [project report](WNFA_Final_Project_Report.pdf).
 
 ## System
 -  Tx: Asus RT-N66U
